@@ -1,0 +1,20 @@
+{
+  "name": "web-ig-notfollback",
+  "version": "1.0.0",
+  "description": "web ig cek people not follback",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "rizkanugrha",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "insta-fetcher": "github:rizkanugrha/insta-fetcher#patch-2"
+  }
+}
