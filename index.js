@@ -1,19 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const { igApi } = require("insta-fetcher");
+const { igApi } = require('insta-fetcher');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(helmet());
 
 // Rate limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per `window`
-    message: "Too many requests from this IP, please try again later."
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests, please try again later.",
 });
-
 app.use(limiter);
 
 app.post('/api/followers', async (req, res) => {
@@ -29,23 +32,23 @@ app.post('/api/followers', async (req, res) => {
     }
 
     try {
-        const ig = new igApi(cookies); // Initialize with user-provided cookies
+        const ig = new igApi(cookies);
         const userId = await ig.getIdByUsername(username);
         const followersData = await ig.getAllFollowers(userId);
         const followingData = await ig.getAllFollowing(userId);
 
         const followerUsernames = followersData.users?.map(user => user.username);
         const followingUsernames = followingData.users?.map(user => user.username);
-
         const notFollowingBack = followingUsernames.filter(user => !followerUsernames.includes(user));
 
         res.json({ notFollowingBack });
     } catch (error) {
-        console.error("Error during request:", error.message);
+        console.error("Error in backend:", error.message);
         res.status(500).json({ error: "An error occurred while processing your request." });
     }
 });
 
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
