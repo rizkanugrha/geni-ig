@@ -28,7 +28,7 @@ const getAllUsers = async (method, userId) => {
     const data = await method(userId, { maxId: nextMaxId });
     users = users.concat(data.users);
     nextMaxId = data.next_max_id;
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Delay 1 second per request
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Delay 1 second per request
   } while (nextMaxId);
 
   return users;
@@ -88,3 +88,4 @@ const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+  
