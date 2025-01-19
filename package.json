@@ -15,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
-    "@vercel/node": "^2.15.10",
-    "insta-fetcher": "github:rizkanugrha/insta-fetcher#patch-2"
+    "insta-fetcher": "github:rizkanugrha/insta-fetcher#patch-2",
+    "@vercel/node": "^5.0.2",
+    "helmet": "^8.0.0"
   }
 }
