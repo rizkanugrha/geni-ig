@@ -5,7 +5,9 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
 const app = express();
-
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -39,8 +41,9 @@ app.post('/api/followers', async (req, res) => {
 
         const followerUsernames = followersData.users?.map(user => user.username);
         const followingUsernames = followingData.users?.map(user => user.username);
+        await delay(5000)
         const notFollowingBack = followingUsernames.filter(user => !followerUsernames.includes(user));
-
+        await delay(5000)
         res.json({ notFollowingBack });
     } catch (error) {
         console.error("Error in backend:", error.message);
